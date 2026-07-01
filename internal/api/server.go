@@ -14,8 +14,6 @@ import (
 
 type Server struct {
 	journeyStore journey.JourneyStore
-	mmmModel     *mmm.MediaMixModel
-	simulator    *simulation.BudgetSimulator
 }
 
 func NewServer(store journey.JourneyStore) *Server {
@@ -69,9 +67,9 @@ func (s *Server) handleAttribution(w http.ResponseWriter, r *http.Request) {
 		Results: results,
 	}
 	if b, err := json.Marshal(report); err == nil {
-		reporting.ExportJSON(report, "")
+		_ = reporting.ExportJSON(report, "")
 		w.Header().Set("Content-Type", "application/json")
-		w.Write(b)
+		_, _ = w.Write(b)
 	}
 }
 
@@ -104,7 +102,7 @@ func (s *Server) handleMMM(w http.ResponseWriter, r *http.Request) {
 	}
 	if b, err := json.Marshal(report); err == nil {
 		w.Header().Set("Content-Type", "application/json")
-		w.Write(b)
+		_, _ = w.Write(b)
 	}
 }
 
@@ -125,13 +123,13 @@ func (s *Server) handleSimulate(w http.ResponseWriter, r *http.Request) {
 	}
 	alloc := sim.Allocate()
 	w.Header().Set("Content-Type", "application/json")
-	json.NewEncoder(w).Encode(alloc)
+	_ = json.NewEncoder(w).Encode(alloc)
 }
 
 func (s *Server) handleHealth(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusOK)
-	json.NewEncoder(w).Encode(map[string]string{
+	_ = json.NewEncoder(w).Encode(map[string]string{
 		"status": "ok",
 		"version": strconv.Itoa(1),
 	})
