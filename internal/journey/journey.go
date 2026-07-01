@@ -144,7 +144,7 @@ func (s *CSVJourneyStore) flush() error {
 	w := csv.NewWriter(f)
 	for _, j := range s.journeys {
 		for _, tp := range j.Touchpoints {
-			w.Write([]string{
+			_ = w.Write([]string{
 				j.CustomerID,
 				tp.Channel,
 				fmt.Sprintf("%f", tp.Cost),

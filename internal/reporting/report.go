@@ -40,9 +40,9 @@ func ExportCSV(results []attribution.AttributionResult, filePath string) error {
 	defer f.Close()
 	w := csv.NewWriter(f)
 	defer w.Flush()
-	w.Write([]string{"channel", "credit", "share"})
+	_ = w.Write([]string{"channel", "credit", "share"})
 	for _, r := range results {
-		w.Write([]string{
+		_ = w.Write([]string{
 			r.Channel,
 			fmt.Sprintf("%.4f", r.Credit),
 			fmt.Sprintf("%.4f", r.Share),
