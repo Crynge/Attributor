@@ -118,7 +118,6 @@ func (s *BudgetSimulator) Optimize(objective func(map[string]float64) float64) m
 	best := s.Allocate()
 	bestVal := objective(best)
 	for step := 0; step < 1000; step++ {
-		candidate := make(map[string]float64)
 		for ch := range s.ChannelROI {
 			origROI := s.ChannelROI[ch]
 			s.SetROI(ch, origROI*(1+(math.Sin(float64(step))*0.01)))
