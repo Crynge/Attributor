@@ -44,6 +44,10 @@ func (m *MarkovChainModel) Attribute(journeys [][]string, converted []bool) []At
 	transitionProb := make([][]float64, states)
 	for i := range transitionProb {
 		transitionProb[i] = make([]float64, states)
+		if i == convIdx {
+			transitionProb[i][i] = 1.0
+			continue
+		}
 		total := 0.0
 		for k := 0; k < states; k++ {
 			total += transitionCount[i][k]

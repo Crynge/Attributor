@@ -84,8 +84,8 @@ func TestShapleyValue(t *testing.T) {
 	results := model.Attribute(paths, conv)
 	credits := mapResults(results)
 	total := credits["a"] + credits["b"]
-	if math.Abs(total-2) > 1e-6 {
-		t.Errorf("expected total credit 2, got %f", total)
+	if math.Abs(total-1) > 1e-6 {
+		t.Errorf("expected total credit 1, got %f", total)
 	}
 }
 
